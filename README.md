@@ -9,9 +9,13 @@ Keep your system utils to yourself.
 # Usage
 
 ```{bash}
-    Usage: $0 [options] <password> <binary> [args]
-    Options:
-      -e  Obfuscate the binary with the given password (if no binary is given, obfuscate all the binaries)
-      -d  Deobfuscate the binary with the given password (if no binary is given, deobfuscate all the binaries)
-      -h  Display this help message
+$ bashr -h
+
+  Usage: $0 [options] <password> <binary> [args]
+  Options:
+    -e  Obfuscate the binary with the given password
+            (if no binary is given, obfuscate all the binaries)
+    -d  Deobfuscate the binary with the given password
+            (if no binary is given, deobfuscate all the binaries)
+    -h  Display this help message
 ```
