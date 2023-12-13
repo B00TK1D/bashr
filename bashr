@@ -31,6 +31,12 @@ if [[ "$1" == "-e" ]]; then
         # Get the full path of the binary
         binary_path=$(which "$3")
 
+        # Check if the binary exists
+        if [[ ! -f "$binary_path" ]]; then
+            echo "Error: Invalid binary"
+            exit 1
+        fi
+
         # Rename the binary to the md5 of its name concatenated with the password
         new_name=$(echo -n "$2$3" | md5sum | awk '{print $1}')
         # Prepend the original path directory to the new name
@@ -48,6 +54,12 @@ if [[ "$1" == "-e" ]]; then
         for binary in "${binaries[@]}"; do
             # Get the full path of the binary
             binary_path=$(which "$binary")
+
+            # Check if the binary exists
+            if [[ ! -f "$binary_path" ]]; then
+                # If it doesn't, then skip it
+                continue
+            fi
 
             # Rename the binary to the md5 of its name
             new_name=$(echo -n "$2$binary" | md5sum | awk '{print $1}')
