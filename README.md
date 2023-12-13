@@ -19,7 +19,7 @@ If you want to deobfuscate your system utils, run `bashr -d <password>`
 ```{bash}
 $ bashr -h
 
-  Usage: $0 [options] <password> <binary> [args]
+  Usage: bashr [options] <password> <binary> [args]
   Options:
     -e  Obfuscate the binary with the given password
             (if no binary is given, obfuscate all the binaries)
