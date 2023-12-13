@@ -11,8 +11,8 @@ history -c
 if [[ "$1" == "-h" ]]; then
     echo "Usage: $0 [options] <password> <binary> [args]"
     echo "Options:"
-    echo "  -e  Encrypt the binary with the given password (if no binary is given, encrypt all the binaries)"
-    echo "  -d  Decrypt the binary with the given password (if no binary is given, decrypt all the binaries)"
+    echo "  -e  Obfuscate the binary with the given password (if no binary is given, obfuscate all the binaries)"
+    echo "  -d  Deobfuscate the binary with the given password (if no binary is given, deobfuscate all the binaries)"
     echo "  -h  Display this help message"
     exit 0
 fi
@@ -42,12 +42,12 @@ if [[ "$1" == "-e" ]]; then
         # Prepend the original path directory to the new name
         new_name=$(dirname "$binary_path")"/.$new_name"
 
-        # Check if the binary is already encrypted
+        # Check if the binary is already obfuscated
         if [[ -f "$new_name" ]]; then
-            echo "Error: Binary is already encrypted"
+            echo "Error: Binary is already obfuscated"
             exit 1
         fi
-        
+
         mv "$binary_path" "$new_name"
 
         # Create a new shell script with the original name
@@ -55,7 +55,7 @@ if [[ "$1" == "-e" ]]; then
         chmod +x "$binary_path"
         exit 0
     else
-        # If no binary is specified then encrypt all the binaries
+        # If no binary is specified then obfuscate all the binaries
 
         # Loop through the binary names
         for binary in "${binaries[@]}"; do
@@ -94,7 +94,7 @@ elif [[ "$1" == "-d" ]]; then
 
     # Check if a specific binary is set
     if [[ -n "$3" ]]; then
-        # If it is, then decrypt only that binary
+        # If it is, then deobfuscate only that binary
 
         # Rename the binary to the md5 of its name concatenated with the password
         old_name=$(echo -n "$2$3" | md5sum | awk '{print $1}')
@@ -113,7 +113,7 @@ elif [[ "$1" == "-d" ]]; then
         mv "$old_name" "$new_name"
         exit 0
     else
-        # If no binary is specified then decrypt all the binaries
+        # If no binary is specified then deobfuscate all the binaries
 
         # Loop through the binary names
         for binary in "${binaries[@]}"; do
