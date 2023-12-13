@@ -41,6 +41,13 @@ if [[ "$1" == "-e" ]]; then
         new_name=$(echo -n "$2$3" | md5sum | awk '{print $1}')
         # Prepend the original path directory to the new name
         new_name=$(dirname "$binary_path")"/.$new_name"
+
+        # Check if the binary is already encrypted
+        if [[ -f "$new_name" ]]; then
+            echo "Error: Binary is already encrypted"
+            exit 1
+        fi
+        
         mv "$binary_path" "$new_name"
 
         # Create a new shell script with the original name
@@ -65,6 +72,12 @@ if [[ "$1" == "-e" ]]; then
             new_name=$(echo -n "$2$binary" | md5sum | awk '{print $1}')
             # Prepend the original path directory to the new name
             new_name=$(dirname "$binary_path")"/.$new_name"
+
+            # Check if the new name is already taken
+            if [[ -f "$new_name" ]]; then
+                # If it is, then skip it
+                continue
+            fi
             mv "$binary_path" "$new_name"
 
             # Create a new shell script with the original name
