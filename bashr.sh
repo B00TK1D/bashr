@@ -26,7 +26,7 @@ if [[ "$1" == "-e" ]]; then
 
     # Check if a specific binary is set
     if [[ -n "$3" ]]; then
-        # If it is, then encrypt only that binary
+        # If it is, then obfuscate only that binary
 
         # Get the full path of the binary
         binary_path=$(which "$3")
