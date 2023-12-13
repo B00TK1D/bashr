@@ -89,6 +89,12 @@ elif [[ "$1" == "-d" ]]; then
         # Get the full path of the binary
         old_name=$(which ".$old_name")
 
+        # Check if the binary exists
+        if [[ ! -f "$old_name" ]]; then
+            echo "Error: Invalid binary or password"
+            exit 1
+        fi
+
         # Prepend the original path directory to the new name
         new_name=$(dirname "$old_name")"/$3"
         mv "$old_name" "$new_name"
@@ -103,6 +109,12 @@ elif [[ "$1" == "-d" ]]; then
 
             # Get the full path of the binary
             old_name=$(which ".$old_name")
+
+            # Check if the binary exists
+            if [[ ! -f "$old_name" ]]; then
+                # If it doesn't, then skip it
+                continue
+            fi
 
             # Prepend the original path directory to the new name
             new_name=$(dirname "$old_name")"/$binary"
